@@ -8,6 +8,7 @@ import {
   Query,
   HttpCode,
   HttpStatus,
+  Delete,
 } from '@nestjs/common';
 import { RecipeService } from './recipes.service';
 
@@ -35,19 +36,13 @@ export class RecipeController {
 
   @Patch()
   @HttpCode(HttpStatus.OK)
-  async updateRecipe(@Param("id")id: number , @Body()body) {
-    return await this.recipeService.updateRecipe(id , body);
+  async updateRecipe(@Param('id') id: number, @Body() body) {
+    return await this.recipeService.updateRecipe(id, body);
   }
 
-  @Post()
+  @Delete()
   @HttpCode(HttpStatus.OK)
-  async createRecipe(@Query('userId') userId: number) {
-    return await this.recipeService.getRecipes(userId);
-  }
-
-  @Post()
-  @HttpCode(HttpStatus.OK)
-  async createRecipe(@Query('userId') userId: number) {
-    return await this.recipeService.getRecipes(userId);
+  async deleteRecipe(@Param('id') id: number) {
+    return await this.recipeService.deleteRecipe(id);
   }
 }
