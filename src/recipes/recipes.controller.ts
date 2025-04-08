@@ -20,4 +20,10 @@ export class RecipeController {
   async getAllRecipes(@Query('userId') userId: number) {
     return await this.recipeService.getRecipes(userId);
   }
+
+  @Post()
+  @HttpCode(HttpStatus.OK)
+  async createRecipe(@Query('userId') userId: number) {
+    return await this.recipeService.getRecipes(userId);
+  }
 }

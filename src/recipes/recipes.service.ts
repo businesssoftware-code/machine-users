@@ -13,4 +13,23 @@ export class RecipeService {
       },
     });
   }
+
+  async createRecipe(body) {
+    return await this.prisma.recipe.create({
+      data: {
+        name: body.name,
+        blending: body.blending,
+        userId: body.userId,
+        RecipeLiquid: {
+          create: body.liquids.map((liquid) => ({
+            label: liquid.label,
+            quantity: liquid.quantity,
+            liquidId: liquid.liquidId,
+          })),
+        },
+      },
+    });
+  }
+
+
 }
