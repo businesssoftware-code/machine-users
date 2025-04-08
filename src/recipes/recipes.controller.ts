@@ -17,7 +17,7 @@ export class RecipeController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getAllRecipes(@Query("userId")userId: number) {
-    return await this.recipeService.getRecipes();
+  async getAllRecipes(@Query('userId') userId: number) {
+    return await this.recipeService.getRecipes(userId);
   }
 }
