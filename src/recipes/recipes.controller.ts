@@ -1,11 +1,23 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
+import { RecipeService } from './recipes.service';
 
-@Injectable()
+@Controller('recipes')
 export class RecipeController {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly recipeService: RecipeService) {}
 
-  async getRecipes() {
-    return await this.prisma.recipe.findMany();
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  async getAllRecipes() {
+    return await this.recipeService.getRecipes();
   }
 }
