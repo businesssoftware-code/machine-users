@@ -30,6 +30,39 @@ export class RecipeService {
       },
     });
   }
+  async getRecipeById(id: number) {
+    return await this.prisma.recipe.findUnique({
+      where: { id },
+      include: {
+        RecipeLiquid: {
+          include: { liquid: true },
+        },
+      },
+    });
+  }
 
+  async updateRecipe(id: number, dto: UpdateRecipeDto) {
+    // Delete old liquids first
+    await this.prisma.recipeLiquid.deleteMany({ where: { recipeId: id } });
+
+    return await this.prisma.recipe.update({
+      where: { id },
+      data: {
+        name: dto.name,
+        blending: dto.blending,
+        RecipeLiquid: {
+          create: dto.liquids.map((liquid) => ({
+            label: liquid.label,
+            quantity: liquid.quantity,
+            liquid: { connect: { id: liquid.liquidId } },
+          })),
+        },
+      },
+    });
+  }
+
+  async deleteRecipe(id: number) {
+    return await this.prisma.recipe.delete({ where: { id } });
+  }
 
 }
