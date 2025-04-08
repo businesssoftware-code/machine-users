@@ -26,4 +26,28 @@ export class RecipeController {
   async createRecipe(@Query('userId') userId: number) {
     return await this.recipeService.getRecipes(userId);
   }
+
+  @Post()
+  @HttpCode(HttpStatus.OK)
+  async getRecipeById(@Param('id') id: number) {
+    return await this.recipeService.getRecipeById(id);
+  }
+
+  @Post()
+  @HttpCode(HttpStatus.OK)
+  async createRecipe(@Query('userId') userId: number) {
+    return await this.recipeService.getRecipes(userId);
+  }
+
+  @Post()
+  @HttpCode(HttpStatus.OK)
+  async createRecipe(@Query('userId') userId: number) {
+    return await this.recipeService.getRecipes(userId);
+  }
+
+  @Post()
+  @HttpCode(HttpStatus.OK)
+  async createRecipe(@Query('userId') userId: number) {
+    return await this.recipeService.getRecipes(userId);
+  }
 }
