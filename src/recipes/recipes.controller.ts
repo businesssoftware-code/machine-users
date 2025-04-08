@@ -23,20 +23,20 @@ export class RecipeController {
 
   @Post()
   @HttpCode(HttpStatus.OK)
-  async createRecipe(@Query('userId') userId: number) {
-    return await this.recipeService.getRecipes(userId);
+  async createRecipe(@Body() body) {
+    return await this.recipeService.createRecipe(body);
   }
 
-  @Post()
+  @Get()
   @HttpCode(HttpStatus.OK)
   async getRecipeById(@Param('id') id: number) {
     return await this.recipeService.getRecipeById(id);
   }
 
-  @Post()
+  @Patch()
   @HttpCode(HttpStatus.OK)
-  async createRecipe(@Query('userId') userId: number) {
-    return await this.recipeService.getRecipes(userId);
+  async updateRecipe(@Param("id")id: number , @Body()body) {
+    return await this.recipeService.updateRecipe(id , body);
   }
 
   @Post()
