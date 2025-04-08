@@ -18,8 +18,8 @@ export class RecipeController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getAllRecipes(@Query('userId') userId: number) {
-    return await this.recipeService.getRecipes(userId);
+  async getAllRecipes(@Query('userId') userId: string) {
+    return await this.recipeService.getRecipes(Number(userId));
   }
 
   @Post()
@@ -30,19 +30,19 @@ export class RecipeController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getRecipeById(@Param('id') id: number) {
-    return await this.recipeService.getRecipeById(id);
+  async getRecipeById(@Param('id') id: string) {
+    return await this.recipeService.getRecipeById(Number(id));
   }
 
   @Patch()
   @HttpCode(HttpStatus.OK)
   async updateRecipe(@Param('id') id: number, @Body() body) {
-    return await this.recipeService.updateRecipe(id, body);
+    return await this.recipeService.updateRecipe(Number(id), body);
   }
 
   @Delete()
   @HttpCode(HttpStatus.OK)
   async deleteRecipe(@Param('id') id: number) {
-    return await this.recipeService.deleteRecipe(id);
+    return await this.recipeService.deleteRecipe(Number(id));
   }
 }
