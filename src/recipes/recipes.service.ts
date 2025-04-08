@@ -95,6 +95,10 @@ export class RecipeService {
   }
   
   async deleteRecipe(id: number) {
+    // 1. Delete old RecipeLiquids
+    await this.prisma.recipeLiquid.deleteMany({
+      where: { recipeId: id },
+    });
     return await this.prisma.recipe.delete({ where: { id } });
   }
 }
