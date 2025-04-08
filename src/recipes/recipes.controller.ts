@@ -28,19 +28,19 @@ export class RecipeController {
     return await this.recipeService.createRecipe(body);
   }
 
-  @Get()
+  @Get(':id')
   @HttpCode(HttpStatus.OK)
   async getRecipeById(@Param('id') id: string) {
     return await this.recipeService.getRecipeById(Number(id));
   }
 
-  @Patch()
+  @Patch(':id')
   @HttpCode(HttpStatus.OK)
   async updateRecipe(@Param('id') id: number, @Body() body) {
     return await this.recipeService.updateRecipe(Number(id), body);
   }
 
-  @Delete()
+  @Delete(':id')
   @HttpCode(HttpStatus.OK)
   async deleteRecipe(@Param('id') id: number) {
     return await this.recipeService.deleteRecipe(Number(id));
