@@ -15,21 +15,34 @@ export class RecipeService {
   }
 
   async createRecipe(body) {
-    return await this.prisma.recipe.create({
+    const recipeLiquids = await Promise.all(
+      body.liquids.map(async ({ label, quantity }) => {
+        const liquid = await this.prisma.liquid.upsert({
+          where: { name: label },
+          update: {},
+          create: { name: label },
+        });
+  
+        return {
+          label,
+          quantity,
+          liquidId: liquid.id,
+        };
+      }),
+    );
+  
+    return this.prisma.recipe.create({
       data: {
         name: body.name,
         blending: body.blending,
-        userId: body.userId,
+        userId :body.userId,
         RecipeLiquid: {
-          create: body.liquids.map((liquid) => ({
-            label: liquid.label,
-            quantity: liquid.quantity,
-            liquidId: liquid.liquidId,
-          })),
+          create: recipeLiquids,
         },
       },
     });
   }
+  
   async getRecipeById(id: number) {
     return await this.prisma.recipe.findUnique({
       where: { id },
