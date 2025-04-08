@@ -13,4 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Recipe
+model User {
+  id                  Int                            @id @default(autoincrement())
+  raspberryPi         String?
+  name                String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime?    @updatedAt
+}
+
+model Recipe {
+    id                  Int                            @id @default(autoincrement())
+  name String
+  liquids   String[] 
+  blending BlendingPattern
+createdAt      DateTime     @default(now())
+  updatedAt      DateTime?    @updatedAt
+}
+
+enum BlendingPattern{
+  low
+  medium 
+  high
+}
