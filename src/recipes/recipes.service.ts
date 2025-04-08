@@ -55,25 +55,45 @@ export class RecipeService {
   }
 
   async updateRecipe(id: number, body) {
-    // Delete old liquids first
-    await this.prisma.recipeLiquid.deleteMany({ where: { recipeId: id } });
-
-    return await this.prisma.recipe.update({
+    // 1. Delete old RecipeLiquids
+    await this.prisma.recipeLiquid.deleteMany({
+      where: { recipeId: id },
+    });
+  
+    // 2. Prepare new RecipeLiquids by resolving liquidId from label
+    const recipeLiquids = await Promise.all(
+      body.liquids.map(async ({ label, quantity }) => {
+        // Find or create liquid by name
+        const liquid = await this.prisma.liquid.upsert({
+          where: { name: label },
+          update: {},
+          create: { name: label },
+        });
+  
+        return {
+          label,
+          quantity,
+          liquidId: liquid.id, // ✅ resolved internally
+        };
+      })
+    );
+  
+    // 3. Update Recipe and create associated RecipeLiquids
+    return this.prisma.recipe.update({
       where: { id },
       data: {
         name: body.name,
         blending: body.blending,
         RecipeLiquid: {
-          create: body.liquids.map((liquid) => ({
-            label: liquid.label,
-            quantity: liquid.quantity,
-            liquidId: liquid.liquidId,
-          })),
+          create: recipeLiquids,
         },
+      },
+      include: {
+        RecipeLiquid: true,
       },
     });
   }
-
+  
   async deleteRecipe(id: number) {
     return await this.prisma.recipe.delete({ where: { id } });
   }
