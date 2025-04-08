@@ -5,7 +5,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class RecipeService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getRecipes() {
-    return await this.prisma.recipe.findMany();
+  async getRecipes(userId: string) {
+    return await this.prisma.recipe.findMany({where : });
   }
 }

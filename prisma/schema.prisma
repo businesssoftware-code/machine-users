@@ -9,29 +9,34 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
+
 model User {
-  id                  Int                            @id @default(autoincrement())
-  raspberryPi         String?
-  name                String?
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime?    @updatedAt
+  id          Int       @id @default(autoincrement())
+  raspberryPi String?
+  name        String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+  Recipe Recipe[]
 }
 
 model Recipe {
-    id                  Int                            @id @default(autoincrement())
-  name String
-  liquids   String[] 
-  blending BlendingPattern
-createdAt      DateTime     @default(now())
-  updatedAt      DateTime?    @updatedAt
+  id        Int             @id @default(autoincrement())
+  name      String
+  liquids   String[]
+  blending  BlendingPattern
+  userId   Int
+  user     User @relation(fields: [userId], references: [id])
+  createdAt DateTime        @default(now())
+  updatedAt DateTime?       @updatedAt
 }
 
-enum BlendingPattern{
+enum BlendingPattern {
   low
-  medium 
+  medium
   high
 }
