@@ -41,20 +41,20 @@ export class RecipeService {
     });
   }
 
-  async updateRecipe(id: number, dto: UpdateRecipeDto) {
+  async updateRecipe(id: number, body) {
     // Delete old liquids first
     await this.prisma.recipeLiquid.deleteMany({ where: { recipeId: id } });
 
     return await this.prisma.recipe.update({
       where: { id },
       data: {
-        name: dto.name,
-        blending: dto.blending,
+        name: body.name,
+        blending: body.blending,
         RecipeLiquid: {
-          create: dto.liquids.map((liquid) => ({
+          create: body.liquids.map((liquid) => ({
             label: liquid.label,
             quantity: liquid.quantity,
-            liquid: { connect: { id: liquid.liquidId } },
+            liquidId: liquid.liquidId,
           })),
         },
       },
@@ -64,5 +64,4 @@ export class RecipeService {
   async deleteRecipe(id: number) {
     return await this.prisma.recipe.delete({ where: { id } });
   }
-
 }
