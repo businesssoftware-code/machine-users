@@ -16,8 +16,8 @@ export class UserService {
     });
   }
 
-  async userLogin(id: number, password: string) {
-    const user = await this.validateUser(id, password);
+  async userLogin(userData) {
+    const user = await this.validateUser(userData.id, userData.password);
     const accessToken = await this.jwtService.createAccessToken(
       user.id,
       user.name,

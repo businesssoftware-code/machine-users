@@ -21,4 +21,10 @@ export class UserController {
   async getUserById(@Param('id') id: string) {
     return await this.userService.getUserById(Number(id));
   }
+
+  @Post('/login')
+  @HttpCode(HttpStatus.OK)
+  async userLogin(@Body() body) {
+    return await this.userService.userLogin(body);
+  }
 }
