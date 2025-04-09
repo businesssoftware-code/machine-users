@@ -27,4 +27,10 @@ export class UserController {
   async userLogin(@Body() body) {
     return await this.userService.userLogin(body);
   }
+
+  @Post('')
+  @HttpCode(HttpStatus.OK)
+  async createUser(@Body() body) {
+    return await this.userService.createUser(body);
+  }
 }

@@ -10,6 +10,12 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
 
+  async createUser(userData) {
+    return await this.prisma.user.create({
+      data: { name: userData.name, password: userData.password },
+    });
+  }
+
   async getUserById(id: number) {
     return await this.prisma.user.findUnique({
       where: { id: id },
@@ -40,8 +46,8 @@ export class UserService {
       throw new UnauthorizedException('User not found');
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
+    //const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (password != user.password) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
