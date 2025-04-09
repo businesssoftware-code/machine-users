@@ -6,7 +6,6 @@ import { JwtService } from './jwt.service';
 
 export interface Payload {
   id?: number;
-  userId?: number;
   email?: string;
 }
 

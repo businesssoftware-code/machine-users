@@ -10,15 +10,15 @@ export class JwtService {
     this.secret = this.configService.get<string>('JWT_SECRET');
   }
 
-  createAccessToken(userId: number, email: string, name: string) {
-    const token = jwt.sign({ userId, email, name }, this.secret, {
+  createAccessToken(userId: number, name: string) {
+    const token = jwt.sign({ userId,name }, this.secret, {
       expiresIn: '1h',
     });
     return token;
   }
 
-  createRefreshToken(userId: number, email: string, name: string) {
-    const token = jwt.sign({ userId, email, name }, this.secret, {
+  createRefreshToken(userId: number,  name: string) {
+    const token = jwt.sign({ userId, name }, this.secret, {
       expiresIn: '1y',
     });
     return token;
@@ -39,10 +39,9 @@ export class JwtService {
   exchangeRefreshTokenForAccess(refreshToken: string) {
     const decoded = jwt.verify(refreshToken, this.secret) as {
       userId: number;
-      email: string;
       name: string;
     };
 
-    return this.createAccessToken(decoded.userId, decoded.email, decoded.name);
+    return this.createAccessToken(decoded.userId,  decoded.name);
   }
 }
