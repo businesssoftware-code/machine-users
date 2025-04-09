@@ -45,7 +45,7 @@ export class UserService {
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
-
+    console.log(user);
     //const isPasswordValid = await bcrypt.compare(password, user.password);
     if (password != user.password) {
       throw new UnauthorizedException('Invalid credentials');
