@@ -9,4 +9,4 @@ import { UserService } from './user.service';
   providers: [UserService, PrismaService],
   exports: [],
 })
-export class RecipeModule {}
+export class UserModule {}
