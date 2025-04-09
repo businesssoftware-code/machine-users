@@ -1,7 +1,8 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { JwtService } from '../../../../src/common/utils';
-import { UserService } from '../../../../src/lms/users/user.service';
+import { UserService } from '../../users/user.service';
+import { JwtService } from './jwt.service';
+
 
 export interface Payload {
   id?: number;
