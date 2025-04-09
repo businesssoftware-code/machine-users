@@ -4,6 +4,7 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
+import { JwtService } from './jwt.service';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
