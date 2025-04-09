@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  UseGuards,
   Patch,
   Post,
   Query,
@@ -11,6 +12,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { RecipeService } from './recipes.service';
+import { JwtAuthGuard } from '../common/auth/jwt.auth.guard';
 
 @Controller('recipes')
 export class RecipeController {
@@ -23,6 +25,7 @@ export class RecipeController {
   }
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   async createRecipe(@Body() body) {
     return await this.recipeService.createRecipe(body);
@@ -35,14 +38,18 @@ export class RecipeController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   async updateRecipe(@Param('id') id: number, @Body() body) {
     return await this.recipeService.updateRecipe(Number(id), body);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   async deleteRecipe(@Param('id') id: number) {
     return await this.recipeService.deleteRecipe(Number(id));
   }
 }
+
+
