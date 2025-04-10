@@ -3,7 +3,7 @@ import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.int
 export const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = [
-      'https://admin-recipes.vercel.app/',
+      'https://admin-recipes.vercel.app',
       'http://localhost:3000',
     ];
 
