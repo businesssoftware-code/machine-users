@@ -3,7 +3,6 @@ import { Request, Response, NextFunction } from 'express';
 import { UserService } from '../../users/user.service';
 import { JwtService } from './jwt.service';
 
-
 export interface Payload {
   id?: number;
   email?: string;

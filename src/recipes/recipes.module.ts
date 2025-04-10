@@ -9,7 +9,13 @@ import { UserService } from '../../src/users/user.service';
 @Module({
   imports: [],
   controllers: [RecipeController],
-  providers: [RecipeService, PrismaService, UserService , JwtService, ConfigService],
+  providers: [
+    RecipeService,
+    PrismaService,
+    UserService,
+    JwtService,
+    ConfigService,
+  ],
   exports: [],
 })
 export class RecipeModule {}

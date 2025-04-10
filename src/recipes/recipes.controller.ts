@@ -51,5 +51,3 @@ export class RecipeController {
     return await this.recipeService.deleteRecipe(Number(id));
   }
 }
-
-
