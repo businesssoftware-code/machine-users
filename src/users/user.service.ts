@@ -23,7 +23,7 @@ export class UserService {
   }
 
   async userLogin(userData) {
-    const user = await this.validateUser(userData.id, userData.password);
+    const user = await this.validateUser(userData.name, userData.password);
     const accessToken = await this.jwtService.createAccessToken(
       user.id,
       user.name,
@@ -40,8 +40,8 @@ export class UserService {
     };
   }
 
-  async validateUser(id: number, password: string) {
-    const user = await this.prisma.user.findUnique({ where: { id: id } });
+  async validateUser(name: string, password: string) {
+    const user = await this.prisma.user.findUnique({ where: { name: name } });
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
