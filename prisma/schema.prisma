@@ -14,49 +14,46 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-
 model User {
-  id          Int       @id @default(autoincrement())
-  raspberryPi String?
-  name        String    @unique
-  password    String?
-  numberOfLiquids  Int?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime? @updatedAt
-  Recipe Recipe[]
+  id              Int       @id @default(autoincrement())
+  raspberryPi     String?
+  name            String    @unique
+  password        String?
+  numberOfLiquids Int?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
+  Recipe          Recipe[]
 }
 
 model Recipe {
-  id        Int             @id @default(autoincrement())
-  name      String
-  blending  BlendingPattern
-  userId   Int
-  user     User @relation(fields: [userId], references: [id])
-  createdAt DateTime        @default(now())
-  updatedAt DateTime?       @updatedAt
+  id           Int             @id @default(autoincrement())
+  name         String
+  blending     BlendingPattern
+  userId       Int
+  user         User            @relation(fields: [userId], references: [id])
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime?       @updatedAt
   RecipeLiquid RecipeLiquid[]
 }
 
 model RecipeLiquid {
-  id         Int      @id @default(autoincrement())
-  liquidId      Int   // e.g. "L1", "L2", etc.
-  label      String   // "L1", "L2", etc.
-  quantity   Float
-  recipeId   Int
-  recipe     Recipe   @relation(fields: [recipeId], references: [id])
-  liquid     Liquid   @relation(fields: [liquidId], references: [id])
-
+  id       Int    @id @default(autoincrement())
+  liquidId Int // e.g. "L1", "L2", etc.
+  label    String // "L1", "L2", etc.
+  quantity Float
+  recipeId Int
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  liquid   Liquid @relation(fields: [liquidId], references: [id])
 }
 
 model Liquid {
-  id     Int    @id @default(autoincrement())
-  name   String  @unique
-   createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   RecipeLiquid RecipeLiquid[]
 }
-
 
 enum BlendingPattern {
   low
