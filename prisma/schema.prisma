@@ -30,6 +30,7 @@ model Recipe {
   name         String
   blending     BlendingPattern
   userId       Int
+  url          String          @default("")
   user         User            @relation(fields: [userId], references: [id])
   createdAt    DateTime        @default(now())
   updatedAt    DateTime?       @updatedAt
@@ -51,7 +52,6 @@ model Liquid {
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   RecipeLiquid RecipeLiquid[]
 }
 

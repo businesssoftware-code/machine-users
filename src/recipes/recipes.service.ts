@@ -34,6 +34,7 @@ export class RecipeService {
     return this.prisma.recipe.create({
       data: {
         name: body.name,
+        url : body.url ,
         blending: body.blending,
         userId: body.userId,
         RecipeLiquid: {
@@ -83,6 +84,7 @@ export class RecipeService {
       where: { id },
       data: {
         name: body.name,
+        url : body.url ,
         blending: body.blending,
         RecipeLiquid: {
           create: recipeLiquids,
