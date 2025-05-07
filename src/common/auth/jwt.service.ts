@@ -11,16 +11,12 @@ export class JwtService {
   }
 
   createAccessToken(userId: number, name: string) {
-    const token = jwt.sign({ userId, name }, this.secret, {
-      expiresIn: '1h',
-    });
+    const token = jwt.sign({ userId, name }, this.secret);
     return token;
   }
 
   createRefreshToken(userId: number, name: string) {
-    const token = jwt.sign({ userId, name }, this.secret, {
-      expiresIn: '1y',
-    });
+    const token = jwt.sign({ userId, name }, this.secret);
     return token;
   }
 

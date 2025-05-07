@@ -48,10 +48,10 @@ model RecipeLiquid {
 }
 
 model Liquid {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int            @id @default(autoincrement())
+  name         String         @unique
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
   RecipeLiquid RecipeLiquid[]
 }
 
