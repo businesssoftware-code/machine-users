@@ -23,12 +23,11 @@ export class JwtService {
   validateJwtToken(token: string) {
     try {
       const payload = jwt.verify(token, this.secret) as Payload;
-      return { payload, expired: false };
+      return { payload};
     } catch (error) {
       return {
         payload: null,
-        expired: 'Token expired',
-      };
+        error: 'Invalid token',};
     }
   }
 
